@@ -1,7 +1,7 @@
 {
   "name": "back-end",
   "version": "1.0.0",
-  "description": "shopify summer 2022 backend challange",
+  "description": "uozone backend code",
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
