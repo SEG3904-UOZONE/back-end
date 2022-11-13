@@ -5,7 +5,7 @@ CREATE DATABASE "uozonedb";
 -----------------------------------------
 
 CREATE TABLE "courses" (
-  "course_id" SERIAL PRIMARY KEY,
+  "course_id" int IDENTITY(1,1) PRIMARY KEY,
   "code" text NULL,
   "number" bigint NULL,
   "term" text NULL,
@@ -33,7 +33,7 @@ INSERT INTO "courses" VALUES
 -----------------------------------------
 
 CREATE TABLE "cart" (
-  "cart_item_id" SERIAL PRIMARY KEY,
+  "cart_item_id" int IDENTITY(1,1) PRIMARY KEY,
   "code" text NULL,
   "number" bigint NULL,
   "term" text NULL,

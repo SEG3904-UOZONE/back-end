@@ -21,9 +21,9 @@ const pool = require('../../database/queries')
  */
 const cart_GET_One = async (req, res) => {
     try {
-      const { id } = req.params;
+      const { cartItemId } = req.params;
       const cartItem = await pool.query("SELECT * FROM cart WHERE cart_item_id = $1", [
-        id
+        cartItemId
       ]);
       res.json(cartItem.rows[0]);
     } catch (err) {
@@ -38,10 +38,10 @@ const cart_GET_One = async (req, res) => {
  */
 const cart_POST = async (req, res) => {
     try {
-      const { description } = req.body;
+      const { cart_item_id, code, number, term, year, section, units, isClosed, name_en, name_fr, startDate, endDate, classes } = req.body;
       const newCartItem = await pool.query(
-        "INSERT INTO cart (description) VALUES($1) RETURNING *",
-        [description]
+        "INSERT INTO courses VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *",
+        [cart_item_id, code, number, term, year, section, units, isClosed, name_en, name_fr, startDate, endDate, classes]
       );
   
       res.json(newCartItem.rows[0]);
@@ -57,11 +57,11 @@ const cart_POST = async (req, res) => {
  */
 const cart_PUT = async (req, res) => {
     try {
-      const { id } = req.params;
-      const { description } = req.body;
+      const { cartItemId } = req.params;
+      const { code, number, term, year, section, units, isClosed, name_en, name_fr, startDate, endDate, classes } = req.body;
       const updatedCartItem = await pool.query(
-        "UPDATE cart SET description = $1 WHERE cart_item_id = $2",
-        [description, id]
+        "UPDATE cart SET VALUES($2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) WHERE cart_item_id = $1",
+        [cartItemId, code, number, term, year, section, units, isClosed, name_en, name_fr, startDate, endDate, classes]
       );
   
       res.json(updatedCartItem);
@@ -77,9 +77,9 @@ const cart_PUT = async (req, res) => {
  */
 const cart_DELETE = async (req, res) => {
     try {
-      const { id } = req.params;
+      const { cartItemId } = req.params;
       const deletedcartItem = await pool.query("DELETE FROM cart WHERE cart_item_id = $1", [
-        id
+        cartItemId
       ]);
       res.json(deletedcartItem);
     } catch (err) {

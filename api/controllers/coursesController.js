@@ -21,9 +21,9 @@ const pool = require('../../database/queries')
  */
 const courses_GET_One = async (req, res) => {
     try {
-      const { id } = req.params;
+      const { courseId } = req.params;
       const course = await pool.query("SELECT * FROM courses WHERE course_id = $1", [
-        id
+        courseId
       ]);
       res.json(course.rows[0]);
     } catch (err) {
@@ -38,10 +38,10 @@ const courses_GET_One = async (req, res) => {
  */
 const courses_POST = async (req, res) => {
     try {
-      const { description } = req.body;
+      const { course_id, code, number, term, year, section, units, isClosed, name_en, name_fr, startDate, endDate, classes } = req.body;
       const newCourse = await pool.query(
-        "INSERT INTO courses (description) VALUES($1) RETURNING *",
-        [description]
+        "INSERT INTO courses VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *",
+        [course_id, code, number, term, year, section, units, isClosed, name_en, name_fr, startDate, endDate, classes]
       );
   
       res.json(newCourse.rows[0]);
@@ -57,11 +57,11 @@ const courses_POST = async (req, res) => {
  */
 const courses_PUT = async (req, res) => {
     try {
-      const { id } = req.params;
-      const { description } = req.body;
+      const { courseId } = req.params;
+      const { code, number, term, year, section, units, isClosed, name_en, name_fr, startDate, endDate, classes } = req.body;
       const updateCourse = await pool.query(
-        "UPDATE courses SET description = $1 WHERE course_id = $2",
-        [description, id]
+        "UPDATE courses SET VALUES($2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) WHERE course_id = $1",
+        [courseId, code, number, term, year, section, units, isClosed, name_en, name_fr, startDate, endDate, classes]
       );
   
       res.json(updateCourse);
@@ -77,9 +77,9 @@ const courses_PUT = async (req, res) => {
  */
 const courses_DELETE = async (req, res) => {
     try {
-      const { id } = req.params;
+      const { courseId } = req.params;
       const deletedCourse = await pool.query("DELETE FROM courses WHERE course_id = $1", [
-        id
+        courseId
       ]);
       res.json(deletedCourse);
     } catch (err) {
