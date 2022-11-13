@@ -1,7 +1,7 @@
 {
   "name": "back-end",
   "version": "1.0.0",
-  "description": "uozone backend code",
+  "description": "uozone backend",
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
