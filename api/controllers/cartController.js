@@ -40,7 +40,7 @@ const cart_POST = async (req, res) => {
     try {
       const { cart_item_id, code, number, term, year, section, units, isClosed, name_en, name_fr, startDate, endDate, classes } = req.body;
       const newCartItem = await pool.query(
-        "INSERT INTO courses VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *",
+        "INSERT INTO cart VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *",
         [cart_item_id, code, number, term, year, section, units, isClosed, name_en, name_fr, startDate, endDate, classes]
       );
   
